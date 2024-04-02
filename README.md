@@ -4,11 +4,11 @@ BDSE33-2 (大數據班專題)
   
 工具、技術  
 -前端
-  -html  
-  -css  
-  -javascript  
-  -bootstrapt  
--模型(機器學習)  
+  -html
+  -css
+  -javascript
+  -bootstrapt
+-模型(機器學習)
   -xgboost  
 -伺服器(後端)  
   -flask  
