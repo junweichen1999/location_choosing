@@ -12,3 +12,5 @@ BDSE33-2 (大數據班專題)
     - xgboost
   - 伺服器 (後端)
     - flask
+  - 資料庫
+    - MySQL
