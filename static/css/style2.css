@@ -1,0 +1,248 @@
+.dashboard_body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 500px;
+    margin-top: 0;
+    margin-right: 20px;
+    margin-bottom: 0;
+    margin-left: 20px;
+    padding: 0;
+    padding-top: 0;
+    padding-right: 20px;
+    padding-bottom: 0;
+    padding-left: 20px;
+}
+
+.show_leaf {
+    width: 70%;
+    height: 580px;
+    /*border: 1px solid gray; */
+    margin: 5px;
+    border-radius: 20px;
+    /*padding: 2em;*/
+    text-align: center;
+
+    /* display: flex;
+            justify-content: center;
+            align-items: center;*/
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* 僅有一個欄位 */
+    /* gap: 10px; */
+    margin: 1rem;
+    padding-top: 40px;
+    padding-left: 30px;
+}
+
+.widget {
+    background-color: #f8fff6;
+    height: 115px;
+    width: 115px;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user_searching_bar {
+    flex: auto;
+    background-color: #f8fff6;
+    margin: 1rem;
+    padding: 0.7rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 16px;
+}
+
+/* leaflet加入 */
+#map {
+    height: 70%;
+    margin: 1rem;
+    margin-bottom: 0rem;
+    border-radius: 1rem;
+
+}
+
+.living_transport {
+    font-family: Arial, sans-serif;
+    width: 1000px;
+    margin-top: 0;
+    margin-right: 25;
+    margin-bottom: 0;
+    margin-left: 25;
+    padding-top: 0;
+    padding-right: 40px;
+    padding-bottom: 0;
+    padding-left: 40px;
+
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px;
+    margin: 1rem;
+}
+
+.containg_live_all {
+    background-color: #f8fff6;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.transport_grading {
+    border-radius: 0.7rem;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+    font-family: Arial, sans-serif;
+    /*padding: 20px;*/
+    padding-top: 16px;
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 0.7rem;
+}
+
+
+.living_grading {
+
+    border-radius: 0.7rem;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+    font-family: Arial, sans-serif;
+    /*padding: 20px;*/
+    padding-top: 16px;
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 0.7rem;
+}
+
+.containg_tranall {
+    background-color: #f8fff6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    border-radius: 1.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*.transport_grading {
+
+    border-radius: 0.7rem;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 1rem;
+
+} */
+
+.element_for_transport {
+    width: 100px;
+    padding: 10px;
+    padding-left: 35px;
+    border-radius: 0.7rem;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    background-color: #fafff9;
+}
+
+.bottom-data {
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
+    margin-right: 25;
+    margin-bottom: 0;
+    margin-left: 25;
+    padding-top: 0px;
+    padding-right: 40px;
+    padding-bottom: 0;
+    padding-left: 40px;
+    width: 1000px;
+    display: flex;
+    display: grid;
+    /* grid-template-columns: 1.5fr 1fr; */
+    gap: 36px;
+    margin: 1rem;
+}
+
+
+.adjust {
+    margin-left: 10px;
+    margin-top: 13px;
+}
+
+.brands {
+
+    background-color: #f8fff6;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.people {
+
+    background-color: #f8fff6;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.pic_size_of_brand {
+    width: 50px;
+    /* 設定圖片寬度，可根據需要調整 */
+    height: auto;
+    /* 讓高度自適應寬度 */
+    border-radius: 50%;
+    /* 設定圓形邊框 */
+}
+
+@media screen and (max-width: 800px) {
+    .dashboard_body {
+        flex-direction: column;
+        /* 将子元素改为垂直排列 */
+    }
+
+    .show_leaf {
+        width: 100%;
+        height: 300px;
+        /*border: 2px solid rgb(0, 0, 0);*/
+        border-radius: 20px;
+        /*padding: 2em;*/
+        text-align: center;
+    }
+
+    .containg_live_all {
+        display: flex;
+        flex-direction: column;
+        /* 将子元素改为垂直排列 */
+        align-items: center;
+        /* 可以根据需要居中对齐 */
+        width: 100%;
+
+    }
+
+
+    .living_grading,
+    .transport_grading {
+
+        grid-template-columns: 1fr;
+        /* 将子元素在网格中变为垂直排列 */
+    }
+}

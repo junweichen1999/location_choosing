@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用者搜尋結果</title>
+    <!-- leaflet加入 -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+    <!-- leaflet加入 -->
+    <!-- html -->
+    <script src="https://kit.fontawesome.com/cfc2f8fdc6.js" crossorigin="anonymous"></script>
+
+    <!-- CSS   網路上下載的 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- CSS文件 自己寫的-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css') }}">
+
+    <style>
+        .table-container {
+            overflow-x: auto;
+            max-height: 350px;
+            width: 100%;
+        }
+
+        table {
+            text-indent: initial;
+            border-spacing: 2px;
+            width: 100%;
+        }
+
+        th,
+        td {
+            text-align: center;
+            /* 讓內容水平置中 */
+            padding: 8px;
+        }
+
+        .td-content {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        #myTable tbody tr:hover {
+            background-color: #e9f5e5;
+            /* 設定 hover 時的背景顏色 */
+        }
+
+        .mother {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .first_child {
+            flex: 2.2;
+            /* 調整為2以獲得20％的寬度 */
+            background-color: #a1bfbe;
+
+            width: 100%;
+            padding-top: 25px;
+            padding-bottom: 20px;
+        }
+
+        .first_child li:hover {
+            background-color: #90b5b4;
+            /* 這裡是你想要的深色背景顏色 */
+            border-radius: 0.5rem;
+
+        }
+
+        .all {
+            background-color: #D9E9DC;
+            flex: 7.8;
+            /* 調整為8以獲得80％的寬度 */
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 60px;
+        }
+
+        .pig_size {
+            width: 100px;
+        }
+
+        li {
+            margin: 20px 30px;
+            padding-right: 15px;
+        }
+
+        h3 {
+            color: #1e585f;
+            margin-left: 30px;
+        }
+
+        h1 {
+            color: #2A686F;
+            margin-left: 55px;
+        }
+
+        .for_text {
+            padding-left: 22px;
+            border-radius: 1rem;
+            background-color: #D9E9DC;
+        }
+
+        .putting_grade {
+            display: flex;
+            justify-content: center;
+            /* 水平置中 */
+            padding-top: 1px;
+
+        }
+
+        .putting_grade2 {
+            display: flex;
+            justify-content: center;
+            /* 水平置中 */
+            padding-top: 1px;
+            padding-left: 18px;
+        }
+
+        .putting_grade3 {
+            display: flex;
+            justify-content: center;
+            /* 水平置中 */
+            padding-top: 1px;
+            padding-left: 7px;
+        }
+
+        .putting_title {
+            display: flex;
+            justify-content: center;
+            /* 水平置中 */
+            padding-top: 10px;
+        }
+
+        /*.contain{
+            background-color: #90b5b4;
+        }*/
+        #delayedElement {
+            display: none;
+            /* 初始設置為隱藏 */
+        }
+    </style>
+
+
+
+    <!-- js文件 -->
+    <script src="{{ url_for('static', filename='js/scrolling_table.js') }}"></script>
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand " href="{{ url_for('index') }}">首頁</a>
+            <a class="navbar-brand" href="#!">查詢儀錶板</bottom-dataa>
+                <a class="navbar-brand" href="{{ url_for('bi') }}">視覺化分析</a>
+
+        </div>
+    </nav>
+    <div class="mother">
+        <div class="first_child">
+            <h3>搜尋歷史紀錄</h3>
+            {% if search_history %}
+            <ul>
+                {% for record in search_history %}
+                <li>{{ record }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>無搜尋歷史紀錄</p>
+            {% endif %}
+        </div>
+        <div class="all">
+
+            <h1>使用者搜尋結果</h1>
+            <div class="dashboard_body">
+
+                <div class="show_leaf">
+                    <div class="user_searching_bar" id="outputDiv"> </div>
+                    <div id="map"></div>
+                </div>
+                <div class="dashboard">
+                    <div class="widget">
+                        <div class="putting_title">
+                            <h2>推薦評分</h2>
+                        </div>
+                        <!-- 在這裡放入您的內容 -->
+                        <div class="putting_grade" id="model_grading"> </div>
+                    </div>
+
+                    <div class="widget">
+                        <div class="putting_title">
+                            <h2>平均星星數</h2>
+                        </div>
+                        <!-- 在這裡放入您的內容 -->
+                        <div class="putting_grade2" id="star_mean"> </div>
+                    </div>
+
+                    <div class="widget">
+                        <div class="putting_title">
+                            <h2>平均租金</h2>
+                        </div>
+                        <!-- 在這裡放入您的內容 -->
+                        <div class="putting_grade3" id="putting_knock"> </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="living_transport">
+
+                <div class="containg_live_all">
+                    <h2>生活機能</h2>
+                    <div class="living_grading">
+                        <div class="contain">
+                            <div class="for_text">公園</div>
+
+                            <div class="element_for_transport" id="gis_count_park"></div>
+                        </div>
+                        <div class="contain">
+                            <div class="for_text">學校</div>
+                            <div class="element_for_transport" id="gis_count_school"> </div>
+                        </div>
+                        <div class="contain">
+                            <div class="for_text">運動設施</div>
+                            <div class="element_for_transport" id="gis_count_sports"> </div>
+                        </div>
+                    </div>
+                    <div class="living_grading">
+                        <div class="contain">
+                            <div class="for_text">醫院</div>
+                            <div class="element_for_transport" id="gis_count_hospital"></div>
+                        </div>
+                        <div class="contain">
+                            <div class="for_text">夜市</div>
+                            <div class="element_for_transport" id="gis_count_night_market"> </div>
+                        </div>
+                        <div class="contain">
+                            <div class="for_text">電影院</div>
+                            <div class="element_for_transport" id="gis_count_movie"> </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="containg_tranall">
+                    <h2>交通設施</h2>
+                    <div class="transport_grading">
+                        <div class="contain">
+                            <div class="for_text">捷運站 </div>
+                            <div class="element_for_transport" id="gis_count_mrt"> </div>
+                        </div>
+                        <div class="contain">
+                            <div class="for_text">火車站 </div>
+                            <div class="element_for_transport" id="gis_count_train"> </div>
+                        </div>
+                    </div>
+                    <div class="transport_grading">
+                        <div class="contain">
+                            <div class="for_text">公車站 </div>
+                            <div class="element_for_transport" id="gis_count_bus"> </div>
+                        </div>
+                        <div class="contain">
+                            <div class="for_text">youbike站 </div>
+                            <div class="element_for_transport" id="gis_count_youbike"> </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="bottom-data">
+                <div class="brands">
+                    <div class="table_head">競品分析-10大品牌指標</div>
+                    <div class="table-container">
+                        <table id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>店家名稱</th>
+
+                                    <th>店家數量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="td-content">
+                                        <img src="{{ url_for('static', filename='images/50嵐.png') }}"
+                                            class="pic_size_of_brand">
+                                        <p class="adjust">50嵐</p>
+                                    </td>
+                                    <td id="1">?</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-content">
+                                        <img src="{{ url_for('static', filename='images/大苑子.png') }}"
+                                            class="pic_size_of_brand">
+                                        <p class="adjust">大苑子</p>
+                                    </td>
+                                    <td id="2">?</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-content">
+                                        <img src="{{ url_for('static', filename='images/珍煮丹.png') }}"
+                                            class="pic_size_of_brand">
+                                        <p class="adjust">珍煮丹</p>
+                                    </td>
+                                    <td id="3">?</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-content">
+                                        <img src="{{ url_for('static', filename='images/先喝道.png') }}"
+                                            class="pic_size_of_brand">
+                                        <p class="adjust">先喝道</p>
+                                    </td>
+                                    <td id="4">?</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-content">
+                                        <img src="{{ url_for('static', filename='images/CoCo.png') }}"
+                                            class="pic_size_of_brand">
+                                        <p class="adjust">CoCo都可</p>
+                                    </td>
+                                    <td id="5">?</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-content">
+                                        <img src="{{ url_for('static', filename='images/麻古茶坊.png') }}"
+                                            class="pic_size_of_brand">
+                                        <p class="adjust">麻古茶坊</p>
+                                    </td>
+                                    <td id="6">?</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-content">
+                                        <img src="{{ url_for('static', filename='images/一沐日.png') }}"
+                                            class="pic_size_of_brand">
+                                        <p class="adjust">一沐日</p>
+                                    </td>
+                                    <td id="7">?</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-content">
+                                        <img src="{{ url_for('static', filename='images/五桐號.png') }}"
+                                            class="pic_size_of_brand">
+                                        <p class="adjust">五桐號</p>
+                                    </td>
+                                    <td id="8">?</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="td-content">
+                                        <img src="{{ url_for('static', filename='images/春水堂.png') }}"
+                                            class="pic_size_of_brand">
+                                        <p class="adjust">春水堂</p>
+                                    </td>
+                                    <td id="9">?</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-content">
+                                        <img src="{{ url_for('static', filename='images/清心福全.png') }}"
+                                            class="pic_size_of_brand">
+                                        <p class="adjust">清心福全</p>
+                                    </td>
+                                    <td id="10">?</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+    <!-- Footer-->
+    <footer class="footer bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                    <ul class="list-inline mb-2">
+                        <li class="list-inline-item"><a href="#!">Team</a></li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item"><a href="#!">Contact</a></li>
+
+                    </ul>
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; 2024/03/21 BDSE33 Group2.</p>
+                </div>
+                <!-- Footer
+            <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item me-4">
+                        <a href="#!"><i class="bi-facebook fs-3"></i></a>
+                    </li>
+                    <li class="list-inline-item me-4">
+                        <a href="#!"><i class="bi-twitter fs-3"></i></a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                    </li>
+                </ul>
+            </div>-->
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Retrieve the address value from localStorage
+        var addressValue = localStorage.getItem("addressValue");
+
+        if (addressValue) {
+            // 顯示使用者查詢地址
+            document.getElementById("outputDiv").innerText = "使用者查詢地址: " + addressValue;
+
+
+
+            // setTimeout(function () {
+            //     document.getElementById("delayedElement").style.display = "block";
+            // }, 7800); // 8000毫秒 = 8秒
+
+            // 執行第一個 fetch 以獲取座標、公園數量等信息
+            fetch('/get_coordinates', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ address: addressValue }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 從響應中獲取緯度和經度
+                    var latitude = data.latitude;
+                    var longitude = data.longitude;
+                    var park_count = data.park_counts;
+                    var school_count = data.school_counts;
+                    var sport_count = data.sports_facilities_counts;
+                    var hospital_count = data.hospital_counts;
+                    var night_market_count = data.night_market_counts;
+                    var movie_count = data.movie_theater_counts;
+                    var bus_count = data.bus_counts;
+                    var mrt_count = data.mrt_counts;
+                    var train_count = data.train_counts;
+                    var youbike_count = data.youbike_counts;
+                    var putting_knock = data.knock_down_price_mean;
+                    var star_mean = data.star_mean;
+                    
+                    
+
+                    // 更新頁面上相關元素的內容
+                    document.getElementById("gis_count_park").innerText = park_count + "個";
+                    document.getElementById("gis_count_school").innerText = school_count + "個";
+                    document.getElementById("gis_count_sports").innerText = sport_count + "個";
+                    document.getElementById("gis_count_hospital").innerText = hospital_count + "個";
+                    document.getElementById("gis_count_night_market").innerText = night_market_count + "個";
+                    document.getElementById("gis_count_movie").innerText = movie_count + "個";
+                    document.getElementById("gis_count_bus").innerText = bus_count + "個";
+                    document.getElementById("gis_count_mrt").innerText = mrt_count + "個";
+                    document.getElementById("gis_count_train").innerText = train_count + "個";
+                    document.getElementById("gis_count_youbike").innerText = youbike_count + "個";
+                    document.getElementById("putting_knock").innerText = putting_knock + "\n元/每坪";
+                    document.getElementById("star_mean").innerText = star_mean + "顆星";
+
+                    // 在提供的座標上創建 Leaflet 地圖
+                    var map = L.map('map').setView([latitude, longitude], 15);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+                    // 在提供的座標上添加標誌，並設置彈出窗口
+                    L.marker([latitude, longitude]).addTo(map)
+                        .bindPopup("緯度：" + latitude + "<br>經度：" + longitude)
+                        .openPopup();
+                })
+                .catch(error => console.error('Error:', error));
+
+            // 執行第二個 fetch 以獲取模型評分
+            fetch("/load_and_get_model", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ address: addressValue }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 從響應中獲取模型評分
+                    var pre_grading = data.pred_point;
+                    console.log(pre_grading)
+                    document.getElementById("model_grading").innerText = pre_grading;
+                })
+                .catch(error => console.error('Error:', error));
+
+      
+        }
+
+
+    </script>
+    <script>
+        // Retrieve the address value from localStorage
+        var addressValue = localStorage.getItem("addressValue");
+
+        // Display the address in the specified div
+        if (addressValue) {
+            document.getElementById("outputDiv").innerText = "使用者查詢地址: " + addressValue;
+
+            // Fetch coordinates from the API
+            fetch('/top10_brand', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ address: addressValue }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 從響應中獲取緯度和經度
+                    var 五十嵐 = data.五十嵐;
+                    var 大苑子 = data.大苑子;
+                    var 珍煮丹 = data.珍煮丹;
+                    var 先喝道 = data.先喝道;
+                    var CoCo都可 = data.CoCo都可;
+                    var 麻古茶坊 = data.麻古茶坊;
+                    var 一沐日 = data.一沐日;
+                    var 五桐號 = data.五桐號;
+                    var 春水堂 = data.春水堂;
+                    var 清心福全 = data.清心福全;
+
+
+
+                    document.getElementById("1").innerText = 五十嵐 + "家";
+                    document.getElementById("2").innerText = 大苑子 + "家";
+                    document.getElementById("3").innerText = 珍煮丹 + "家";
+                    document.getElementById("4").innerText = 先喝道 + "家";
+                    document.getElementById("5").innerText = CoCo都可 + "家";
+                    document.getElementById("6").innerText = 麻古茶坊 + "家";
+                    document.getElementById("7").innerText = 一沐日 + "家";
+                    document.getElementById("8").innerText = 五桐號 + "家";
+                    document.getElementById("9").innerText = 春水堂 + "家";
+                    document.getElementById("10").innerText = 清心福全 + "家";
+                });
+        }
+    </script>
+
+</body>
+
+</html>

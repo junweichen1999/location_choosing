@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group2_final</title>
+   
+    <!-- CSS文件 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css') }}">
+    <style>
+        .main_part_for_bi{
+            width:1600px;
+            height:700px;
+            /*background-color: #2A686F;*/
+            background-color:#F6F7F6;
+
+        }
+    </style>
+    
+    
+</head>
+<body>  
+     <!-- Navigation-->
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand " href="{{ url_for('index') }}">首頁</a>
+            <a class="navbar-brand" href="{{ url_for('page2') }}">查詢儀錶板</a>
+            <a class="navbar-brand" href="#!">視覺化分析</a>
+        </div>
+    </nav>
+    <!-- Masthead-->
+     <!--  
+        <div class="main_part_for_bi">
+            <iframe title="(免費版)畢業專題bi網頁呈現" width="1800" height="800" src="https://app.powerbi.com/reportEmbed?reportId=6ba0d6ac-8205-4d62-9ed2-d95d1c14dd83&autoAuth=true&ctid=e43b3bcb-8372-45a9-8920-4d9ac07e1294" frameborder="0" allowFullScreen="true"></iframe>
+
+      --> 
+    <div class="main_part_for_bi"> 
+        <!--  正冰帳號 -->
+        <iframe title="最終版-按鈕" width="1600" height="700" src="https://app.powerbi.com/view?r=eyJrIjoiNzY2NjdjMzUtZjRiZS00M2FiLWJhOTMtYjc2NDQxOTY1YTYyIiwidCI6ImZkZDQ2NDZkLWIwOGItNDQ1MC1hZmRhLTc0YjBiZGFkMTYxMyIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+       
+        
+    </div>
+    <!--  HTML  -->
+     <!-- Footer-->
+
+
+
+
+
+     <footer class="footer bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                    <ul class="list-inline mb-2">
+                        <li class="list-inline-item"><a href="#!">Team</a></li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item"><a href="#!">Contact</a></li>
+                       
+                    </ul>
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; 2024/03/21 BDSE33 Group2.</p>
+                </div>
+                <!-- Footer
+                <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item me-4">
+                            <a href="#!"><i class="bi-facebook fs-3"></i></a>
+                        </li>
+                        <li class="list-inline-item me-4">
+                            <a href="#!"><i class="bi-twitter fs-3"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                        </li>
+                    </ul>
+                </div>-->
+            </div>
+        </div>
+    </footer>
+    
+    
+</body>
+</html>
+
