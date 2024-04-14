@@ -33,7 +33,7 @@ $ pip install xgboost
 ## DEMO
 - First page (使用者輸入地址頁面)
 ![first_page](/img/first_page.png?raw=true "Demo Page 1")
-- Second page (使用這得到之結果)
+- Second page (使用者得到之結果)
 ![second_page](/img/page2.gif?raw=true "Demo Page 2")
-- Third page (power bi 互動式圖表)
+- Third page (PowerBI 互動式圖表)
 ![third_page](/img/third_page.png?raw=true "Demo Page 3")
