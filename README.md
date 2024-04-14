@@ -32,7 +32,6 @@ $ pip install xgboost
 
 ## DEMO
 - First page (使用者輸入地址頁面)
-<img src="/img/first_page.png?raw=true "Demo Page 1"" alt="图片描述" width="800" >
 ![first_page](/img/first_page.png?raw=true "Demo Page 1")
 - Second page (使用這得到之結果)
 ![second_page](/img/page2.gif?raw=true "Demo Page 2")
