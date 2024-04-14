@@ -21,8 +21,8 @@ BDSE33-2 (大數據班專題)
 
 ## DEMO
 - First page (使用者輸入地址頁面)
-  ![first_page](C:/Users/Wilson/Downloads/pic_of_final_demo/first_page.png?raw=true "Demo Page 1")
+![first_page](C:/Users/Wilson/Downloads/pic_of_final_demo/first_page.png?raw=true "Demo Page 1")
 - Second page (使用這得到之結果)
-  ![second_page](C:/Users/Wilson/Downloads/pic_of_final_demo/page2.gif?raw=true "Demo Page 2")
+![second_page](C:/Users/Wilson/Downloads/pic_of_final_demo/page2.gif?raw=true "Demo Page 2")
 - Third page (power bi 互動式圖表)
-  ![first_page](C:/Users/Wilson/Downloads/pic_of_final_demo/third_page.png?raw=true "Demo Page 3")
+![third_page](C:/Users/Wilson/Downloads/pic_of_final_demo/third_page.png?raw=true "Demo Page 3")
