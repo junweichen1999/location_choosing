@@ -16,7 +16,7 @@ BDSE33-2 (大數據班專題)
   - 資料庫
     - MySQL
 
-## installation 
+## Installation 
 ```bash
 $ pip install numpy
 $ pip install flask
