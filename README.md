@@ -17,7 +17,18 @@ BDSE33-2 (大數據班專題)
     - MySQL
 
 ## installation 
-
+```bash
+$ pip install numpy
+$ pip install flask
+$ pip install Flask-SQLAlchemy
+$ pip install geocoder
+$ pip install geopandas
+$ pip install geopy
+$ pip install jinja2
+$ pip install numpy
+$ pip install pandas
+$ pip install xgboost
+```
 
 ## DEMO
 - First page (使用者輸入地址頁面)
